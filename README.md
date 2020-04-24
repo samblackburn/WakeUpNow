@@ -5,8 +5,9 @@ PowerShell scripts to do the morning dance:
  - Remote into your dev machine
 
 # Usage
+I launch the script from a .cmd file on my desktop:
 ```
-.\WakeUpNow.ps1
+powershell "& C:\Users\Sam\source\repos\WakeUpNow\WakeUpNow.ps1"
 ```
 You will be prompted for information the first time you run the script:
  - Your machine name (often dev-firstname.red-gate.com)
