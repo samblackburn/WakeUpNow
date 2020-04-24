@@ -25,8 +25,10 @@ Write-Host "Connecting with username $user."
 & "C:\Program Files (x86)\CheckPoint\Endpoint Connect\trac.exe" connect -u $user -p $password
 if ($LastExitCode) { throw "VPN returned exit code $LastExitCode" }
 
-& start "https://wol.red-gate.com/WakeUp?Name=$machineName"
-$a = 1 
+ping $machineName -n 1
+if ($LastExitCode) {
+	& start "https://wol.red-gate.com/WakeUp?Name=$machineName"
+}
 
 do {
     ping $machineName -n 1
