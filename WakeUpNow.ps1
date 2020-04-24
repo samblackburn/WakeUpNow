@@ -1,13 +1,20 @@
-$machineName = "DEV-SAM2.red-gate.com"
-
 & $PSScriptRoot\.paket\paket.bootstrapper.exe
 & $PSScriptRoot\.paket\paket.exe install
 
 . $PSScriptRoot\Credentials.ps1
 
-Write-Host "Enter your RG Domain creds.  The username should be your Redgate domain username without the domain."
-Write-Warning "Note: The creds will be saved in the Windows Credential Store."
-Write-Warning "Don't use this script unless you trust the security of your PC."
+$machineFile = "$PSScriptRoot\machine.txt"
+if (Test-Path $machineFile) {
+    $machineName = Get-Content $machineFile
+}
+else {
+    $machineName = Read-Host -Prompt "Enter your machine name.  For example, mine is dev-sam2.red-gate.com"
+    Set-Content $machineFile $machineName
+}
+
+Write-Host "Enter your RG Domain creds. The username should be your Redgate domain username without the domain."
+Write-Warning "Note: This script will save your RG doman creds in the Windows Credential Store."
+Write-Warning "Don't use it unless you trust the security of your PC."
 Write-Warning "If your home machine gets hacked, you should change your RG domain password immediately."
 
 $domainCred = Request-RedGateDomainCredential
